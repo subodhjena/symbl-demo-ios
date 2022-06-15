@@ -5,11 +5,6 @@
 //  Created by Subodh Jena on 15/06/22.
 //
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let startRequest = try? newJSONDecoder().decode(StartRequest.self, from: jsonData)
-
 import Foundation
 
 // MARK: - StartRequest

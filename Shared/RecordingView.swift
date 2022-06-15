@@ -46,11 +46,13 @@ struct RecordingView: View {
     func resumeAudioRecording() {
         print("Streaming resumed!")
         captureSession.startRecording()
+        symblRealtime.startRequest()
     }
     
     func pauseAudioRecording() {
         print("Streaming paused!")
-        captureSession.stopRecording();
+        captureSession.stopRecording()
+        symblRealtime.stopRequest()
     }
     
     func stopStreaming() {
@@ -60,6 +62,7 @@ struct RecordingView: View {
     
     func receivedAudioData(data: Data) {
         print("Received data - \(data)")
+        symblRealtime.streamAudio(data: data)
     }
 }
 

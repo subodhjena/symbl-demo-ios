@@ -14,7 +14,7 @@ class SymblRealtime: WebSocketDelegate {
     var isConnected: Bool = false;
     
     let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
-    let accessToken = "REPLACE_THIS";
+    let accessToken = "CHANGE_THIS";
     
     func initialize() {
         let symblEndpoint = "wss://api.symbl.ai/v1/streaming/\(uniqueMeetingId)?access_token=\(accessToken)"
@@ -60,6 +60,12 @@ class SymblRealtime: WebSocketDelegate {
         }
     }
     
+    func streamAudio(data: Data) {
+        if (isConnected) {
+            socket.write(data: data)
+        }
+    }
+    
     func didReceive(event: WebSocketEvent, client: WebSocketClient) {
         switch event {
         case .connected(let headers):
@@ -70,7 +76,16 @@ class SymblRealtime: WebSocketDelegate {
             isConnected = false
             print("websocket is disconnected: \(reason) with code: \(code)")
         case .text(let string):
-            print("Received text: \(string)")
+            do {
+                let data = string.data(using: .utf8)!
+                let jsonDecoder = JSONDecoder()
+                let message = try jsonDecoder.decode(Message.self,
+                                                             from: data)
+                print("Transcript: \(message.message.punctuated.transcript)")
+            } catch {
+                print(error)
+            }
+            
         case .binary(let data):
             print("Received data: \(data.count)")
         case .ping(_):

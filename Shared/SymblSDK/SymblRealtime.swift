@@ -10,11 +10,11 @@ import Starscream
 
 class SymblRealtime: WebSocketDelegate {
     
-    var socket: WebSocket!
-    var isConnected: Bool = false;
-    
     let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
     let accessToken = "CHANGE_THIS";
+    
+    var socket: WebSocket!
+    var isConnected: Bool = false;
     
     func initialize() {
         let symblEndpoint = "wss://api.symbl.ai/v1/streaming/\(uniqueMeetingId)?access_token=\(accessToken)"

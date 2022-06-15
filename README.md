@@ -4,11 +4,11 @@ An iOS app with Symbl realtime api integration
 
 ## How to run?
 
-Open file and change the access key
+Go to file Shared/SymblSDK/SymblRealtime.swift
 
 ```swift
-    // GO to file Shared/SymblSDK/SymblRealtime.swift
-    // Replace your accessToken
+    // Replace below variables with appropriate data
 
+    let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
     let accessToken = "CHANGE_THIS";
 ```

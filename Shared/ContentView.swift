@@ -31,7 +31,7 @@ struct ContentView: View {
             }
             .toolbar {
 #if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
                 }
 #endif
@@ -41,8 +41,10 @@ struct ContentView: View {
                     }
                 }
             }
+            .navigationBarTitle(Text("Voice Notes"))
             Text("Select an item")
         }
+        
     }
 
     private func addItem() {

@@ -8,8 +8,58 @@
 import SwiftUI
 
 struct RecordingView: View {
+    @StateObject var captureSession = CaptureSession()
+    let symblRealtime = SymblRealtime()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Spacer()
+            VStack(alignment: .trailing) {
+                // Recording Status
+                Text("Mic Active - \(captureSession.isAudioRecording ? "True": "False")")
+                
+                HStack {
+                    // Pause/Resume Recording
+                    Button(
+                        action: captureSession.isAudioRecording ? pauseAudioRecording : resumeAudioRecording,
+                        label: {
+                            captureSession.isAudioRecording ? Image("MicOn")
+                                .foregroundColor(Color.white) : Image("MicOff")
+                                .foregroundColor(Color.white)
+                        }
+                    )
+                    .frame(width: 64, height: 64)
+                    .background(Color.yellow)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .padding(20)
+        }
+        .onReceive(captureSession.audioPublisher){ (data) in
+            receivedAudioData(data: data)
+        }
+        .onAppear() {
+            symblRealtime.initialize()
+        }
+    }
+    
+    func resumeAudioRecording() {
+        print("Streaming resumed!")
+        captureSession.startRecording()
+    }
+    
+    func pauseAudioRecording() {
+        print("Streaming paused!")
+        captureSession.stopRecording();
+    }
+    
+    func stopStreaming() {
+        print("Streaming stoped!")
+        captureSession.stopRecording();
+    }
+    
+    func receivedAudioData(data: Data) {
+        print("Received data - \(data)")
     }
 }
 

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+// MARK: - StopRequest
+struct StopRequest: Codable {
+    let type : String
+}
+

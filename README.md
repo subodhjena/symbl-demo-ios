@@ -1,2 +1,2 @@
-# symbl-demo-ios
+# Symbl iOS Demo
 symbl-demo-ios

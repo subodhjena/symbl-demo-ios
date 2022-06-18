@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct RecordingView: View {
+    
+    // State Variables
     @StateObject var captureSession = CaptureSession()
+    
+    // Local
     let symblRealtime = SymblRealtime()
     
     var body: some View {
@@ -67,6 +71,7 @@ struct RecordingView: View {
 }
 
 struct RecordingView_Previews: PreviewProvider {
+
     static var previews: some View {
         RecordingView()
     }

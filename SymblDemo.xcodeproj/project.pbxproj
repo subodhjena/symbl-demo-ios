@@ -29,6 +29,7 @@
 		AD30DE402859A902000D3ACF /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30DE122859A901000D3ACF /* Persistence.swift */; };
 		AD30DE412859A902000D3ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD30DE132859A902000D3ACF /* Assets.xcassets */; };
 		AD30DE422859A902000D3ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD30DE132859A902000D3ACF /* Assets.xcassets */; };
+		AD64426D28608EA200A0EA1B /* SymblNativeRealtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD64426C28608EA000A0EA1B /* SymblNativeRealtime.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		AD30DE312859A902000D3ACF /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD30DE352859A902000D3ACF /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		AD30DE372859A902000D3ACF /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		AD64426C28608EA000A0EA1B /* SymblNativeRealtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymblNativeRealtime.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				AD0C1B8E2859AC00009B810B /* Models */,
 				AD0C1B8F2859AC1C009B810B /* SymblRealtime.swift */,
+				AD64426C28608EA000A0EA1B /* SymblNativeRealtime.swift */,
 			);
 			path = SymblSDK;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD30DE3B2859A902000D3ACF /* SymblDemoApp.swift in Sources */,
+				AD64426D28608EA200A0EA1B /* SymblNativeRealtime.swift in Sources */,
 				AD30DE3F2859A902000D3ACF /* Persistence.swift in Sources */,
 				AD0C1B922859AC53009B810B /* StartRequest.swift in Sources */,
 				AD0C1B9B2859AF5E009B810B /* CaptureSession.swift in Sources */,

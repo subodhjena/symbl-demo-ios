@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Message
-struct SymblDataResponse: Codable {
+struct SymblMessage: Codable {
     let type: String
     let message: MessageClass
     let timeOffset: Int

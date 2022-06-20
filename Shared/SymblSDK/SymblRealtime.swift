@@ -11,7 +11,11 @@ import Combine
 class SymblRealtime: NSObject, ObservableObject, URLSessionWebSocketDelegate {
     
     var urlSessionWebSocketTask: URLSessionWebSocketTask!
-    var symblDataPublisher = PassthroughSubject<SymblDataResponse, Never>()
+    
+    var symblMessagePublisher = PassthroughSubject<SymblMessage, Never>()
+    var symblMessageResponsePublisher = PassthroughSubject<SymblMessageResponse, Never>()
+    var symblTopicResponsePublisher = PassthroughSubject<SymblTopicResponse, Never>()
+    var symblInsightResponsePublisher = PassthroughSubject<SymblInsightResponse, Never>()
     
     let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
     let accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjQ5NTYzMTYwODU3ODA0ODAiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoibzZXM1BLdUg2cnAxVVBxY0VhQ2NHSnlwMXlLQ25MVFJAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjU1NzAyMTQ4LCJleHAiOjE2NTU3ODg1NDgsImF6cCI6Im82VzNQS3VINnJwMVVQcWNFYUNjR0p5cDF5S0NuTFRSIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.BrA3NxYhIAhmpcg33_Ler4pS3_PQCLCoFdeLHAAR4hNBFflWQiPB0svKffZVHU2eCoFe3-Xy7LBW9avOpHd3YlVP5nZ71g7KZNqaFwvcg7WqVDEcRxJRGLkL3ZFzOKE2umSfexilTASVir1lmtCf1pBJ5_tXfppFyZQ7RxIAVv8c5ZDBIqlZkf1gsWm44VEMKlfxXIv0F5fIsN4NCmM1qvISEsN_NhpmG0ocT22g1zVRGtGcsekO5dFzmEJdvwbSMGxhuBtzHWKq2sMxzASpPvT1BfNFFn5mgLG476sckFvEYGSHqbrMrpuMrDgQAQVeNj9w0sCT10Y5zCoLONHyVw";
@@ -108,13 +112,23 @@ class SymblRealtime: NSObject, ObservableObject, URLSessionWebSocketDelegate {
             case .success(let message):
                 switch message {
                 case .string(let text):
-                    print("Received text message: \(text)")
                     do {
-                        let data = text.data(using: .utf8)!
+                        let textData = text.data(using: .utf8)!
                         let jsonDecoder = JSONDecoder()
-                        let message = try jsonDecoder.decode(SymblDataResponse.self,
-                                                             from: data)
-                        self.symblDataPublisher.send(message)
+                        let symblDataResponse = try jsonDecoder.decode(SymblData.self,
+                                                          from: textData)
+                        if(symblDataResponse.type == "message") {
+                            self.publishMessage(data: textData)
+                        }
+                        else if(symblDataResponse.type == "message_response") {
+                            self.publishMessageResponse(data: textData)
+                        }
+                        else if(symblDataResponse.type == "insight_response") {
+                            self.publishInsightResponse(data: textData)
+                        }
+                        else if(symblDataResponse.type == "topic_response") {
+                            self.publishTopicResponse(data: textData)
+                        }
                     } catch {
                         print(error)
                     }
@@ -129,6 +143,49 @@ class SymblRealtime: NSObject, ObservableObject, URLSessionWebSocketDelegate {
         }
     }
     
+    func publishMessage(data: Data) {
+        do {
+            let jsonDecoder = JSONDecoder()
+            let symblMessage = try jsonDecoder.decode(SymblMessage.self,
+                                              from: data)
+            self.symblMessagePublisher.send(symblMessage)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func publishMessageResponse(data: Data) {
+        do {
+            let jsonDecoder = JSONDecoder()
+            let symblMessageResponse = try jsonDecoder.decode(SymblMessageResponse.self,
+                                              from: data)
+            self.symblMessageResponsePublisher.send(symblMessageResponse)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func publishInsightResponse(data: Data) {
+        do {
+            let jsonDecoder = JSONDecoder()
+            let symblInsightResponse = try jsonDecoder.decode(SymblInsightResponse.self,
+                                              from: data)
+            self.symblInsightResponsePublisher.send(symblInsightResponse)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func publishTopicResponse(data: Data) {
+        do {
+            let jsonDecoder = JSONDecoder()
+            let symblTopicResponse = try jsonDecoder.decode(SymblTopicResponse.self,
+                                              from: data)
+            self.symblTopicResponsePublisher.send(symblTopicResponse)
+        } catch {
+            print(error)
+        }
+    }
 }
 
 public enum Message {

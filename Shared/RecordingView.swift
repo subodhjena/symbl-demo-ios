@@ -54,8 +54,17 @@ struct RecordingView: View {
         .onReceive(captureSession.audioPublisher){ (data) in
             receivedAudioData(data: data)
         }
-        .onReceive(symblRealtime.symblDataPublisher) {(data) in
+        .onReceive(symblRealtime.symblMessagePublisher) {(data) in
             receivedMessage(data: data)
+        }
+        .onReceive(symblRealtime.symblMessageResponsePublisher) {(data) in
+            print("Symbl - Message Response: \(data)")
+        }
+        .onReceive(symblRealtime.symblTopicResponsePublisher) {(data) in
+            print("Symbl - Topic Response: \(data)")
+        }
+        .onReceive(symblRealtime.symblInsightResponsePublisher) {(data) in
+            print("Symbl - Insight Response: \(data)")
         }
         .onAppear() {
             symblRealtime.connect()
@@ -85,22 +94,9 @@ struct RecordingView: View {
         symblRealtime.streamAudio(data: data)
     }
     
-    func receivedMessage(data: SymblDataResponse) {
+    func receivedMessage(data: SymblMessage) {
         let message = data.message
-        
-        print("Message type: \(message.type)")
-        switch (message.type)  {
-        case "recognition_result":
-            formattedTranscription = message.punctuated.transcript
-        case "insight_response":
-            print("Response: Insight - \(message)")
-        case "topic_response":
-            print("Response: Topic - \(message)")
-        case "message_response":
-            print("Response: Message - \(message)")
-        default:
-            print("Response: Default - \(message)")
-        }
+        formattedTranscription = message.punctuated.transcript
     }
 }
 

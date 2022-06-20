@@ -58,7 +58,7 @@ struct RecordingView: View {
             receivedMessage(data: data)
         }
         .onAppear() {
-            symblRealtime.initialize()
+            symblRealtime.connect()
         }
         
     }

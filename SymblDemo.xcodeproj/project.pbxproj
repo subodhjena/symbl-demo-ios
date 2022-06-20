@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AD0C1B8C2859AB84009B810B /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = AD0C1B8B2859AB84009B810B /* Starscream */; };
-		AD0C1B902859AC1C009B810B /* SymblRealtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B8F2859AC1C009B810B /* SymblRealtime.swift */; };
 		AD0C1B922859AC53009B810B /* StartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B912859AC53009B810B /* StartRequest.swift */; };
 		AD0C1B942859AC5D009B810B /* StopRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B932859AC5D009B810B /* StopRequest.swift */; };
 		AD0C1B972859ACA6009B810B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B962859ACA6009B810B /* Extensions.swift */; };
@@ -29,7 +27,7 @@
 		AD30DE402859A902000D3ACF /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30DE122859A901000D3ACF /* Persistence.swift */; };
 		AD30DE412859A902000D3ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD30DE132859A902000D3ACF /* Assets.xcassets */; };
 		AD30DE422859A902000D3ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD30DE132859A902000D3ACF /* Assets.xcassets */; };
-		AD64426D28608EA200A0EA1B /* SymblNativeRealtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD64426C28608EA000A0EA1B /* SymblNativeRealtime.swift */; };
+		AD64426D28608EA200A0EA1B /* SymblRealtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD64426C28608EA000A0EA1B /* SymblRealtime.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +48,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AD0C1B8F2859AC1C009B810B /* SymblRealtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymblRealtime.swift; sourceTree = "<group>"; };
 		AD0C1B912859AC53009B810B /* StartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRequest.swift; sourceTree = "<group>"; };
 		AD0C1B932859AC5D009B810B /* StopRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopRequest.swift; sourceTree = "<group>"; };
 		AD0C1B962859ACA6009B810B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -72,7 +69,7 @@
 		AD30DE312859A902000D3ACF /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD30DE352859A902000D3ACF /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		AD30DE372859A902000D3ACF /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
-		AD64426C28608EA000A0EA1B /* SymblNativeRealtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymblNativeRealtime.swift; sourceTree = "<group>"; };
+		AD64426C28608EA000A0EA1B /* SymblRealtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymblRealtime.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD0C1B8C2859AB84009B810B /* Starscream in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,8 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				AD0C1B8E2859AC00009B810B /* Models */,
-				AD0C1B8F2859AC1C009B810B /* SymblRealtime.swift */,
-				AD64426C28608EA000A0EA1B /* SymblNativeRealtime.swift */,
+				AD64426C28608EA000A0EA1B /* SymblRealtime.swift */,
 			);
 			path = SymblSDK;
 			sourceTree = "<group>";
@@ -218,7 +213,6 @@
 			);
 			name = "SymblDemo (iOS)";
 			packageProductDependencies = (
-				AD0C1B8B2859AB84009B810B /* Starscream */,
 			);
 			productName = "SymblDemo (iOS)";
 			productReference = AD30DE182859A902000D3ACF /* SymblDemo.app */;
@@ -313,7 +307,6 @@
 			);
 			mainGroup = AD30DE082859A901000D3ACF;
 			packageReferences = (
-				AD0C1B8A2859AB84009B810B /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = AD30DE192859A902000D3ACF /* Products */;
 			projectDirPath = "";
@@ -366,7 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD30DE3B2859A902000D3ACF /* SymblDemoApp.swift in Sources */,
-				AD64426D28608EA200A0EA1B /* SymblNativeRealtime.swift in Sources */,
+				AD64426D28608EA200A0EA1B /* SymblRealtime.swift in Sources */,
 				AD30DE3F2859A902000D3ACF /* Persistence.swift in Sources */,
 				AD0C1B922859AC53009B810B /* StartRequest.swift in Sources */,
 				AD0C1B9B2859AF5E009B810B /* CaptureSession.swift in Sources */,
@@ -375,7 +368,6 @@
 				AD1FD1872859C0C300A9A890 /* Message.swift in Sources */,
 				AD0C1B992859AE65009B810B /* RecordingView.swift in Sources */,
 				AD30DE3D2859A902000D3ACF /* ContentView.swift in Sources */,
-				AD0C1B902859AC1C009B810B /* SymblRealtime.swift in Sources */,
 				AD0C1B942859AC5D009B810B /* StopRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -783,25 +775,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		AD0C1B8A2859AB84009B810B /* XCRemoteSwiftPackageReference "Starscream" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/daltoniam/Starscream";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		AD0C1B8B2859AB84009B810B /* Starscream */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AD0C1B8A2859AB84009B810B /* XCRemoteSwiftPackageReference "Starscream" */;
-			productName = Starscream;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		AD30DE0E2859A901000D3ACF /* SymblDemo.xcdatamodeld */ = {

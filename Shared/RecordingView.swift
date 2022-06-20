@@ -6,24 +6,35 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct RecordingView: View {
+    var memo: Memo
     
-    // State Variables
+    @State var formattedTranscription: String = ""
+    
     @StateObject var captureSession = CaptureSession()
-    
-    // Local
-    let symblRealtime = SymblRealtime()
+    @StateObject var symblRealtime = SymblRealtime()
     
     var body: some View {
-        VStack {
-            Spacer()
-            VStack(alignment: .trailing) {
-                // Recording Status
-                Text("Mic Active - \(captureSession.isAudioRecording ? "True": "False")")
+        VStack (){
+            VStack(alignment: .leading, spacing: 8) {
+                Text(memo.timestamp!, formatter: itemFormatter)
+                    .fontWeight(.bold)
+                    .font(.headline)
                 
+                Text("00:00:00")
+                    .fontWeight(.light)
+                    .font(.subheadline)
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
+            .padding(20)
+            
+            TextEditor(text: $formattedTranscription)
+                .padding()
+            
+            VStack(alignment: .trailing) {
                 HStack {
-                    // Pause/Resume Recording
                     Button(
                         action: captureSession.isAudioRecording ? pauseAudioRecording : resumeAudioRecording,
                         label: {
@@ -33,7 +44,8 @@ struct RecordingView: View {
                         }
                     )
                     .frame(width: 64, height: 64)
-                    .background(Color.yellow)
+                    .background(Color.blue)
+                    .cornerRadius(10)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
@@ -42,9 +54,13 @@ struct RecordingView: View {
         .onReceive(captureSession.audioPublisher){ (data) in
             receivedAudioData(data: data)
         }
+        .onReceive(symblRealtime.symblDataPublisher) {(data) in
+            receivedMessage(data: data)
+        }
         .onAppear() {
             symblRealtime.initialize()
         }
+        
     }
     
     func resumeAudioRecording() {
@@ -68,11 +84,33 @@ struct RecordingView: View {
         print("Received data - \(data)")
         symblRealtime.streamAudio(data: data)
     }
+    
+    func receivedMessage(data: SymblDataResponse) {
+        let message = data.message
+        
+        print("Message type: \(message.type)")
+        switch (message.type)  {
+        case "recognition_result":
+            formattedTranscription = message.punctuated.transcript
+        case "insight_response":
+            print("Response: Insight - \(message)")
+        case "topic_response":
+            print("Response: Topic - \(message)")
+        case "message_response":
+            print("Response: Message - \(message)")
+        default:
+            print("Response: Default - \(message)")
+        }
+    }
 }
 
 struct RecordingView_Previews: PreviewProvider {
-
+    
     static var previews: some View {
-        RecordingView()
+        let previewViewContext = PersistenceController.preview.container.viewContext
+        let fetchRequest = NSFetchRequest<Memo>(entityName: "Memo")
+        
+        let memo = try? previewViewContext.fetch(fetchRequest).first! as Memo
+        RecordingView(memo: memo!)
     }
 }

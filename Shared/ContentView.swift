@@ -21,7 +21,7 @@ struct ContentView: View {
             List {
                 ForEach(memos) { memo in
                     NavigationLink {
-                        RecordingView()
+                        RecordingView(memo: memo)
                     } label: {
                         Text(memo.timestamp!, formatter: itemFormatter)
                     }
@@ -79,7 +79,7 @@ struct ContentView: View {
     }
 }
 
-private let itemFormatter: DateFormatter = {
+let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
     formatter.timeStyle = .medium

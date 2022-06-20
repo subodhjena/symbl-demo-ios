@@ -7,11 +7,14 @@
 
 import Foundation
 import Starscream
+import Combine
 
-class SymblRealtime: WebSocketDelegate {
+class SymblRealtime: WebSocketDelegate, ObservableObject {
     
     let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
-    let accessToken = "CHANGE_THIS";
+    let accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjQ5NTYzMTYwODU3ODA0ODAiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoibzZXM1BLdUg2cnAxVVBxY0VhQ2NHSnlwMXlLQ25MVFJAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjU1NzAyMTQ4LCJleHAiOjE2NTU3ODg1NDgsImF6cCI6Im82VzNQS3VINnJwMVVQcWNFYUNjR0p5cDF5S0NuTFRSIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.BrA3NxYhIAhmpcg33_Ler4pS3_PQCLCoFdeLHAAR4hNBFflWQiPB0svKffZVHU2eCoFe3-Xy7LBW9avOpHd3YlVP5nZ71g7KZNqaFwvcg7WqVDEcRxJRGLkL3ZFzOKE2umSfexilTASVir1lmtCf1pBJ5_tXfppFyZQ7RxIAVv8c5ZDBIqlZkf1gsWm44VEMKlfxXIv0F5fIsN4NCmM1qvISEsN_NhpmG0ocT22g1zVRGtGcsekO5dFzmEJdvwbSMGxhuBtzHWKq2sMxzASpPvT1BfNFFn5mgLG476sckFvEYGSHqbrMrpuMrDgQAQVeNj9w0sCT10Y5zCoLONHyVw";
+    
+    var symblDataPublisher = PassthroughSubject<SymblDataResponse, Never>()
     
     var socket: WebSocket!
     var isConnected: Bool = false;
@@ -26,7 +29,7 @@ class SymblRealtime: WebSocketDelegate {
     }
     
     func startRequest() {
-        let startRequestObject = StartRequest(type: "start_request", meetingTitle: "iOS Websockets How-to", insightTypes: ["question", "action_item"], config: Config(confidenceThreshold: 0.5, languageCode: "en-US", speechRecognition: SpeechRecognition(encoding: "LINEAR16", sampleRateHertz: 44100)), speaker: Speaker(userID: "subodh.jena@symbl.ai", name: "Subodh Jena"))
+        let startRequestObject = StartRequest(type: "start_request", meetingTitle: "iOS Websockets How-to", insightTypes: ["question", "action_item", "follow_up"], config: Config(confidenceThreshold: 0.5, languageCode: "en-US", speechRecognition: SpeechRecognition(encoding: "LINEAR16", sampleRateHertz: 44100)), speaker: Speaker(userID: "subodh.jena@symbl.ai", name: "Subodh Jena"))
         
         var startRequestJsonString: String!
         
@@ -79,13 +82,12 @@ class SymblRealtime: WebSocketDelegate {
             do {
                 let data = string.data(using: .utf8)!
                 let jsonDecoder = JSONDecoder()
-                let message = try jsonDecoder.decode(Message.self,
+                let message = try jsonDecoder.decode(SymblDataResponse.self,
                                                              from: data)
-                print("Transcript: \(message.message.punctuated.transcript)")
+                symblDataPublisher.send(message)
             } catch {
                 print(error)
             }
-            
         case .binary(let data):
             print("Received data: \(data.count)")
         case .ping(_):

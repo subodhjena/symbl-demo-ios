@@ -14,6 +14,25 @@ struct RecordingView: View {
     @State var formattedTranscription: String = ""
     @State var activeTranscription: String = ""
     
+    @State var symblTopics: [Topic] = []
+    @State var symblInsights: [Insight] = []
+    
+    var symblInsightQuestions: [Insight] {
+        get {
+            return symblInsights.filter { $0.type == "question" }
+        }
+    }
+    var symblInsightActionItems: [Insight] {
+        get {
+            return symblInsights.filter { $0.type == "action_item" }
+        }
+    }
+    var symblInsightFollowUps: [Insight] {
+        get {
+            return symblInsights.filter { $0.type == "follow_up" }
+        }
+    }
+    
     @StateObject var captureSession = CaptureSession()
     @StateObject var symblRealtime = SymblRealtime()
     
@@ -27,14 +46,18 @@ struct RecordingView: View {
                 Text("00:00:00")
                     .fontWeight(.light)
                     .font(.subheadline)
+                
+                Text("Topics: \(symblTopics.count), Questions: \(symblInsightQuestions.count)")
+                
+                Text("Follow ups: \(symblInsightFollowUps.count), Actions Items: \(symblInsightActionItems.count)")
             }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
+            .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 80 ,alignment: .topLeading)
             .padding(20)
             
             TextEditor(text: $formattedTranscription)
                 .foregroundColor(Color.gray)
                 .padding()
-                
+            
             VStack(alignment: .trailing) {
                 HStack {
                     Text(activeTranscription)
@@ -52,7 +75,7 @@ struct RecordingView: View {
                     .cornerRadius(10)
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .trailing)
+            .frame(maxWidth: .infinity, maxHeight: 80, alignment: .trailing)
             .padding(20)
         }
         .onReceive(captureSession.audioPublisher){ (data) in
@@ -63,18 +86,30 @@ struct RecordingView: View {
         }
         .onReceive(symblRealtime.symblMessageResponsePublisher) {(data) in
             print("Symbl - Message Response: \(data)")
+            var text: String = ""
+            for sentence in data.messages {
+                text = text + "\n" + sentence.payload.content
+            }
+            formattedTranscription = formattedTranscription + text + "\n"
         }
         .onReceive(symblRealtime.symblTopicResponsePublisher) {(data) in
-            print("Symbl - Topic Response: \(data)")
+            for topic in data.topics {
+                symblTopics.append(topic)
+            }
         }
         .onReceive(symblRealtime.symblInsightResponsePublisher) {(data) in
-            print("Symbl - Insight Response: \(data)")
+            for insight in data.insights {
+                symblInsights.append(insight)
+            }
         }
         .onAppear() {
             symblRealtime.connect()
         }
         .onDisappear() {
+            
+            captureSession.stopRecording()
             symblRealtime.disconnect()
+            
         }
     }
     
@@ -102,9 +137,7 @@ struct RecordingView: View {
     
     func receivedMessage(data: SymblMessage) {
         let message = data.message
-        // activeTranscription = message.punctuated.transcript
-        formattedTranscription = message.punctuated.transcript
-        
+        activeTranscription = message.punctuated.transcript
     }
 }
 

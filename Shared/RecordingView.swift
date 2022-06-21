@@ -12,6 +12,7 @@ struct RecordingView: View {
     var memo: Memo
     
     @State var formattedTranscription: String = ""
+    @State var activeTranscription: String = ""
     
     @StateObject var captureSession = CaptureSession()
     @StateObject var symblRealtime = SymblRealtime()
@@ -31,10 +32,13 @@ struct RecordingView: View {
             .padding(20)
             
             TextEditor(text: $formattedTranscription)
+                .foregroundColor(Color.gray)
                 .padding()
-            
+                
             VStack(alignment: .trailing) {
                 HStack {
+                    Text(activeTranscription)
+                    
                     Button(
                         action: captureSession.isAudioRecording ? pauseAudioRecording : resumeAudioRecording,
                         label: {
@@ -69,7 +73,9 @@ struct RecordingView: View {
         .onAppear() {
             symblRealtime.connect()
         }
-        
+        .onDisappear() {
+            symblRealtime.disconnect()
+        }
     }
     
     func resumeAudioRecording() {
@@ -96,7 +102,9 @@ struct RecordingView: View {
     
     func receivedMessage(data: SymblMessage) {
         let message = data.message
+        // activeTranscription = message.punctuated.transcript
         formattedTranscription = message.punctuated.transcript
+        
     }
 }
 

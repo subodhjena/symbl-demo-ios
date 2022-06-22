@@ -15,9 +15,9 @@ struct NewRecordingView: View {
     @State private var formattedTranscription: String = ""
     @State private var activeTranscription: String = ""
 
+    private var symblRealtime: SymblRealtimeApi?
     @State private var symblRealtimeDelegate = SymblRealtimeDataDelegate()
-    @State private var symblRealtime: SymblRealtimeApi?
-    
+
     init(memo: Memo) {
         _memo = memo
     }
@@ -101,11 +101,11 @@ class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
         }
     }
     
-    func onSymblRealtimeConnected() {
+    func symblRealtimeConnected() {
         print("SymblRealtimeDelegateClass: Conncted")
     }
     
-    func onSymblRealtimeDisonnected() {
+    func symblRealtimeDisonnected() {
         print("SymblRealtimeDelegateClass: Disconncted")
     }
 }
@@ -115,7 +115,7 @@ struct NewRecordingView_Previews: PreviewProvider {
         let previewViewContext = PersistenceController.preview.container.viewContext
         let fetchRequest = NSFetchRequest<Memo>(entityName: "Memo")
         
-        let memo = try? previewViewContext.fetch(fetchRequest).first! as Memo
+        let memo = try? previewViewContext.fetch(fetchRequest).last! as Memo
         NewRecordingView(memo: memo!)
     }
 }

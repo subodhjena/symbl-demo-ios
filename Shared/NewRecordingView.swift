@@ -14,26 +14,9 @@ struct NewRecordingView: View {
     
     @State private var formattedTranscription: String = ""
     @State private var activeTranscription: String = ""
-    
-    let symblRealtimeDelegate = SymblRealtimeDelegateClass()
+
+    @State private var symblRealtimeDelegate = SymblRealtimeDataDelegate()
     @State private var symblRealtime: SymblRealtimeApi?
-    @State private var symblTopics: [Topic] = []
-    @State private var symblInsights: [Insight] = []
-    private var symblInsightQuestions: [Insight] {
-        get {
-            return symblInsights.filter { $0.type == "question" }
-        }
-    }
-    private var symblInsightActionItems: [Insight] {
-        get {
-            return symblInsights.filter { $0.type == "action_item" }
-        }
-    }
-    private var symblInsightFollowUps: [Insight] {
-        get {
-            return symblInsights.filter { $0.type == "follow_up" }
-        }
-    }
     
     init(memo: Memo) {
         _memo = memo
@@ -50,9 +33,9 @@ struct NewRecordingView: View {
                     .fontWeight(.light)
                     .font(.subheadline)
                 
-                Text("Topics: \(symblTopics.count), Questions: \(symblInsightQuestions.count)")
+                Text("Topics: \(symblRealtimeDelegate.symblTopics.count), Questions: \(symblRealtimeDelegate.symblInsightQuestions.count)")
                 
-                Text("Follow ups: \(symblInsightFollowUps.count), Actions Items: \(symblInsightActionItems.count)")
+                Text("Follow ups: \(symblRealtimeDelegate.symblInsightFollowUps.count), Actions Items: \(symblRealtimeDelegate.symblInsightActionItems.count)")
             }
             .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 80 ,alignment: .topLeading)
             .padding(20)
@@ -88,11 +71,40 @@ struct NewRecordingView: View {
     private func startOrPauseRecording() {}
 }
 
-
-class SymblRealtimeDelegateClass: SymblRealtimeDelegate {
+class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
+    private var _symblTopics: [Topic] = []
+    private var _symblInsights: [Insight] = []
+    
+    public var symblTopics: [Topic] {
+        get {
+            return _symblTopics
+        }
+    }
+    public var symblInsights: [Insight] {
+        get {
+            return _symblInsights
+        }
+    }
+    public var symblInsightQuestions: [Insight] {
+        get {
+            return _symblInsights.filter { $0.type == "question" }
+        }
+    }
+    public var symblInsightActionItems: [Insight] {
+        get {
+            return _symblInsights.filter { $0.type == "action_item" }
+        }
+    }
+    public var symblInsightFollowUps: [Insight] {
+        get {
+            return _symblInsights.filter { $0.type == "follow_up" }
+        }
+    }
+    
     func onSymblRealtimeConnected() {
         print("SymblRealtimeDelegateClass: Conncted")
     }
+    
     func onSymblRealtimeDisonnected() {
         print("SymblRealtimeDelegateClass: Disconncted")
     }

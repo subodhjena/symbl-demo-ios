@@ -17,6 +17,7 @@ struct NewRecordingView: View {
 
     private var symblRealtime: SymblRealtimeApi?
     @State private var symblRealtimeDelegate = SymblRealtimeDataDelegate()
+    @StateObject var captureSession = CaptureSession()
 
     init(memo: Memo) {
         _memo = memo
@@ -47,14 +48,7 @@ struct NewRecordingView: View {
             VStack(alignment: .trailing) {
                 HStack {
                     Text(activeTranscription)
-                    
-                    Button(action: startOrPauseRecording, label: {
-                        Image("MicOff")
-                            .foregroundColor(Color.white)
-                    })
-                    .frame(width: 64, height: 64)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                    recordButton
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: 80, alignment: .trailing)
@@ -66,9 +60,44 @@ struct NewRecordingView: View {
             symbl.initializeRealtimeSession(meetingId: uniqueMeetingId, delegate: symblRealtimeDelegate)
             symbl.realtimeSession?.connect()
         }
+        .onReceive(captureSession.audioPublisher){ (data) in
+            receivedAudioData(data: data)
+        }
     }
     
-    private func startOrPauseRecording() {}
+    var recordButton: some View {
+        Button(action: startOrStopRecording, label: {
+            captureSession.isAudioRecording ? Image("MicOn")
+                .foregroundColor(Color.white) : Image("MicOff")
+                .foregroundColor(Color.white)
+        })
+        .frame(width: 64, height: 64)
+        .background(Color.blue)
+        .cornerRadius(10)
+    }
+    
+    private func startOrStopRecording() {
+        if(captureSession.isAudioRecording) {
+            captureSession.stopRecording()
+            stopRequest()
+        }
+        else {
+            captureSession.startRecording()
+            startRquest()
+        }
+    }
+    
+    private func startRquest() {
+        // symblRealtime.startRequest()
+    }
+    
+    private func stopRequest() {
+        // symblRealtime.stopRequest()
+    }
+    
+    private func receivedAudioData(data: Data) {
+        // symblRealtime.streamAudio(data: data)
+    }
 }
 
 class SymblRealtimeDataDelegate: SymblRealtimeDelegate {

@@ -80,6 +80,7 @@ struct NewRecordingView: View {
         .onAppear {
             let symbl = Symbl(accessToken: "ACCESS_TOKEN")
             let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
+            
             symbl.initializeRealtimeSession(meetingId: uniqueMeetingId)
             symbl.realtimeSession?.connect()
         }

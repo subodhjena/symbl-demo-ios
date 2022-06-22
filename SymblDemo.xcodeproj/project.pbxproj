@@ -12,6 +12,9 @@
 		AD0C1B972859ACA6009B810B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B962859ACA6009B810B /* Extensions.swift */; };
 		AD0C1B992859AE65009B810B /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B982859AE64009B810B /* RecordingView.swift */; };
 		AD0C1B9B2859AF5E009B810B /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */; };
+		AD14CFFD2862DE0B002F00D8 /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD14CFFC2862DE0B002F00D8 /* SymblSwiftSDK */; };
+		AD14CFFF2862DE11002F00D8 /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD14CFFE2862DE11002F00D8 /* SymblSwiftSDK */; };
+		AD14D0012862E22B002F00D8 /* NewRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD14D0002862E22B002F00D8 /* NewRecordingView.swift */; };
 		AD1FD1872859C0C300A9A890 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FD1862859C0C300A9A890 /* Message.swift */; };
 		AD30DE2A2859A902000D3ACF /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30DE292859A902000D3ACF /* Tests_iOS.swift */; };
 		AD30DE2C2859A902000D3ACF /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30DE2B2859A902000D3ACF /* Tests_iOSLaunchTests.swift */; };
@@ -58,6 +61,8 @@
 		AD0C1B982859AE64009B810B /* RecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView.swift; sourceTree = "<group>"; };
 		AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 		AD0C1B9C2859B0C4009B810B /* SymblDemo--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SymblDemo--iOS--Info.plist"; sourceTree = "<group>"; };
+		AD14CFFA2862DDF7002F00D8 /* SymblSwiftSDK */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SymblSwiftSDK; path = ../SymblSwiftSDK; sourceTree = "<group>"; };
+		AD14D0002862E22B002F00D8 /* NewRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordingView.swift; sourceTree = "<group>"; };
 		AD1FD1862859C0C300A9A890 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		AD30DE0F2859A901000D3ACF /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		AD30DE102859A901000D3ACF /* SymblDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymblDemoApp.swift; sourceTree = "<group>"; };
@@ -85,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD14CFFD2862DE0B002F00D8 /* SymblSwiftSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD14CFFF2862DE11002F00D8 /* SymblSwiftSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,15 +150,32 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		AD14CFF92862DDF7002F00D8 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				AD14CFFA2862DDF7002F00D8 /* SymblSwiftSDK */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		AD14CFFB2862DE0B002F00D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AD30DE082859A901000D3ACF = {
 			isa = PBXGroup;
 			children = (
+				AD14CFF92862DDF7002F00D8 /* Packages */,
 				AD0C1B9C2859B0C4009B810B /* SymblDemo--iOS--Info.plist */,
 				AD30DE0D2859A901000D3ACF /* Shared */,
 				AD30DE1F2859A902000D3ACF /* macOS */,
 				AD30DE282859A902000D3ACF /* Tests iOS */,
 				AD30DE342859A902000D3ACF /* Tests macOS */,
 				AD30DE192859A902000D3ACF /* Products */,
+				AD14CFFB2862DE0B002F00D8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,6 +191,7 @@
 				AD30DE0E2859A901000D3ACF /* SymblDemo.xcdatamodeld */,
 				AD0C1B982859AE64009B810B /* RecordingView.swift */,
 				AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */,
+				AD14D0002862E22B002F00D8 /* NewRecordingView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -225,6 +250,7 @@
 			);
 			name = "SymblDemo (iOS)";
 			packageProductDependencies = (
+				AD14CFFC2862DE0B002F00D8 /* SymblSwiftSDK */,
 			);
 			productName = "SymblDemo (iOS)";
 			productReference = AD30DE182859A902000D3ACF /* SymblDemo.app */;
@@ -243,6 +269,9 @@
 			dependencies = (
 			);
 			name = "SymblDemo (macOS)";
+			packageProductDependencies = (
+				AD14CFFE2862DE11002F00D8 /* SymblSwiftSDK */,
+			);
 			productName = "SymblDemo (macOS)";
 			productReference = AD30DE1E2859A902000D3ACF /* SymblDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -373,6 +402,7 @@
 				AD30DE3B2859A902000D3ACF /* SymblDemoApp.swift in Sources */,
 				AD64426D28608EA200A0EA1B /* SymblRealtime.swift in Sources */,
 				AD30DE3F2859A902000D3ACF /* Persistence.swift in Sources */,
+				AD14D0012862E22B002F00D8 /* NewRecordingView.swift in Sources */,
 				AD0C1B922859AC53009B810B /* StartRequest.swift in Sources */,
 				AD0C1B9B2859AF5E009B810B /* CaptureSession.swift in Sources */,
 				AD0C1B972859ACA6009B810B /* Extensions.swift in Sources */,
@@ -791,6 +821,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AD14CFFC2862DE0B002F00D8 /* SymblSwiftSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SymblSwiftSDK;
+		};
+		AD14CFFE2862DE11002F00D8 /* SymblSwiftSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SymblSwiftSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		AD30DE0E2859A901000D3ACF /* SymblDemo.xcdatamodeld */ = {

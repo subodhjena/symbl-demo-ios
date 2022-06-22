@@ -11,8 +11,6 @@ import Combine
 
 class CaptureSession: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, ObservableObject {
     var audioPublisher = PassthroughSubject<Data, Never>()
-    
-    
     var isAudioRecording = false {
         didSet {
             objectWillChange.send()

@@ -21,7 +21,7 @@ struct ContentView: View {
             List {
                 ForEach(memos) { memo in
                     NavigationLink {
-                        RecordingView(memo: memo)
+                        NewRecordingView(memo: memo)
                     } label: {
                         Text(memo.timestamp!, formatter: itemFormatter)
                     }
@@ -40,7 +40,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationBarTitle(Text("Voice Notes"))
+            .navigationBarTitle(Text("Memos"))
             Text("Select an item")
         }
         

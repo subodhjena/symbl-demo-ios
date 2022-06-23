@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AD075BA7286474CE00AE3894 /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD075BA6286474CE00AE3894 /* SymblSwiftSDK */; };
-		AD075BA9286474E100AE3894 /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD075BA8286474E100AE3894 /* SymblSwiftSDK */; };
+		AD0AE8EC286479E8002A653B /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD0AE8EB286479E8002A653B /* SymblSwiftSDK */; };
+		AD0AE8EE286479ED002A653B /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD0AE8ED286479ED002A653B /* SymblSwiftSDK */; };
 		AD0C1B972859ACA6009B810B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B962859ACA6009B810B /* Extensions.swift */; };
 		AD0C1B9B2859AF5E009B810B /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */; };
 		AD14D0012862E22B002F00D8 /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD14D0002862E22B002F00D8 /* RecordingView.swift */; };
@@ -47,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD0AE8EA286479DE002A653B /* symbl-swift-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "symbl-swift-sdk"; path = "../symbl-swift-sdk"; sourceTree = "<group>"; };
 		AD0C1B962859ACA6009B810B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 		AD0C1B9C2859B0C4009B810B /* SymblDemo--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SymblDemo--iOS--Info.plist"; sourceTree = "<group>"; };
@@ -72,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD075BA7286474CE00AE3894 /* SymblSwiftSDK in Frameworks */,
+				AD0AE8EC286479E8002A653B /* SymblSwiftSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD075BA9286474E100AE3894 /* SymblSwiftSDK in Frameworks */,
+				AD0AE8EE286479ED002A653B /* SymblSwiftSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD0AE8E9286479DE002A653B /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				AD0AE8EA286479DE002A653B /* symbl-swift-sdk */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		AD0C1B952859AC8C009B810B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +128,7 @@
 		AD30DE082859A901000D3ACF = {
 			isa = PBXGroup;
 			children = (
+				AD0AE8E9286479DE002A653B /* Packages */,
 				AD0C1B9C2859B0C4009B810B /* SymblDemo--iOS--Info.plist */,
 				AD30DE0D2859A901000D3ACF /* Shared */,
 				AD30DE1F2859A902000D3ACF /* macOS */,
@@ -198,7 +208,7 @@
 			);
 			name = "SymblDemo (iOS)";
 			packageProductDependencies = (
-				AD075BA6286474CE00AE3894 /* SymblSwiftSDK */,
+				AD0AE8EB286479E8002A653B /* SymblSwiftSDK */,
 			);
 			productName = "SymblDemo (iOS)";
 			productReference = AD30DE182859A902000D3ACF /* SymblDemo.app */;
@@ -218,7 +228,7 @@
 			);
 			name = "SymblDemo (macOS)";
 			packageProductDependencies = (
-				AD075BA8286474E100AE3894 /* SymblSwiftSDK */,
+				AD0AE8ED286479ED002A653B /* SymblSwiftSDK */,
 			);
 			productName = "SymblDemo (macOS)";
 			productReference = AD30DE1E2859A902000D3ACF /* SymblDemo.app */;
@@ -296,7 +306,6 @@
 			);
 			mainGroup = AD30DE082859A901000D3ACF;
 			packageReferences = (
-				AD075BA5286474CE00AE3894 /* XCRemoteSwiftPackageReference "symbl-swift-sdk" */,
 			);
 			productRefGroup = AD30DE192859A902000D3ACF /* Products */;
 			projectDirPath = "";
@@ -763,26 +772,13 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		AD075BA5286474CE00AE3894 /* XCRemoteSwiftPackageReference "symbl-swift-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/subodhjena/symbl-swift-sdk";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		AD075BA6286474CE00AE3894 /* SymblSwiftSDK */ = {
+		AD0AE8EB286479E8002A653B /* SymblSwiftSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AD075BA5286474CE00AE3894 /* XCRemoteSwiftPackageReference "symbl-swift-sdk" */;
 			productName = SymblSwiftSDK;
 		};
-		AD075BA8286474E100AE3894 /* SymblSwiftSDK */ = {
+		AD0AE8ED286479ED002A653B /* SymblSwiftSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AD075BA5286474CE00AE3894 /* XCRemoteSwiftPackageReference "symbl-swift-sdk" */;
 			productName = SymblSwiftSDK;
 		};
 /* End XCSwiftPackageProductDependency section */

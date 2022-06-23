@@ -10,7 +10,7 @@ import CoreData
 import SymblSwiftSDK
 
 struct RecordingView: View {
-    let accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjQ5NTYzMTYwODU3ODA0ODAiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoibzZXM1BLdUg2cnAxVVBxY0VhQ2NHSnlwMXlLQ25MVFJAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjU1OTAxNjcyLCJleHAiOjE2NTU5ODgwNzIsImF6cCI6Im82VzNQS3VINnJwMVVQcWNFYUNjR0p5cDF5S0NuTFRSIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.xEuaaCCGoPTVJllUpucIiez9X3U3wON2EcljrnTyZ8aRo7-bQYNPFmXfhVrq3uLxJKpXDQ8tAoo9mdQg0M2U1gxb2-TG6QbyYvvPgZYKX8JUrfwmRKnDtWCsOj2difnM-l45EhgwsHFjrhOxkfnpvobf18pL0yboZZxLPUUMKlemCkVYTKBitnGA512-RNORn1QqLIB8T5zn61a55vOPBHjxe2NmjkjQUiJsZ13aQqyp_jVVD6uAxE8UOY4Vu2vNvDlB6McfGJnALnGuNgmkQnedUMgBDzNNqv0nPbighpZMZ2elw0T_1BKagwF4xMcRC3EV2pBK7PpGOJX_O1i02A"
+    let accessToken = "CHANGE_THIS"
     
     private var _memo: Memo
     var memo: Memo {
@@ -22,7 +22,8 @@ struct RecordingView: View {
     
     @State private var symbl: Symbl?
     @StateObject var captureSession = CaptureSession()
-    @StateObject var symblRealtimeDelegate = SymblRealtimeDataDelegate()
+    
+    let symblRealtimeDelegate = SymblRealtimeDataDelegate()
     
     init(memo: Memo) {
         _memo = memo
@@ -51,7 +52,7 @@ struct RecordingView: View {
             
             VStack(alignment: .trailing) {
                 HStack {
-                    Text(symblRealtimeDelegate.punctuatedTranscript)
+                    Text(activeTranscription)
                     recordButton
                 }
             }
@@ -114,9 +115,7 @@ struct RecordingView: View {
     }
 }
 
-class SymblRealtimeDataDelegate:NSObject, ObservableObject, SymblRealtimeDelegate {
-    @State var punctuatedTranscript: String = ""
-    
+class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
     func symblRealtimeConnected() {
         print("SymblRealtimeDelegateClass: Conncted")
     }
@@ -127,7 +126,6 @@ class SymblRealtimeDataDelegate:NSObject, ObservableObject, SymblRealtimeDelegat
     
     func symblReceivedMessage(message: SymblMessage) {
         print("SymblRealtimeDelegateClass: Message")
-        self.punctuatedTranscript = message.punctuated!.transcript
     }
     
     func symblReceivedMessageResponse(messageResponse: SymblMessageResponse) {

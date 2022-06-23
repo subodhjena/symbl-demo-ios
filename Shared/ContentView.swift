@@ -40,7 +40,9 @@ struct ContentView: View {
                     }
                 }
             }
+#if os(iOS)
             .navigationBarTitle(Text("Memos"))
+#endif
             Text("Select an item")
         }
         

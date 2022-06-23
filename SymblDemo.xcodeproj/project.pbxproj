@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AD0AE8EC286479E8002A653B /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD0AE8EB286479E8002A653B /* SymblSwiftSDK */; };
 		AD0AE8EE286479ED002A653B /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD0AE8ED286479ED002A653B /* SymblSwiftSDK */; };
+		AD0AE8EF28647CF4002A653B /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */; };
+		AD0AE8F028647D1B002A653B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B962859ACA6009B810B /* Extensions.swift */; };
 		AD0C1B972859ACA6009B810B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B962859ACA6009B810B /* Extensions.swift */; };
 		AD0C1B9B2859AF5E009B810B /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */; };
 		AD14D0012862E22B002F00D8 /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD14D0002862E22B002F00D8 /* RecordingView.swift */; };
@@ -376,6 +378,8 @@
 				ADD2620F2863487B00F482B2 /* RecordingView.swift in Sources */,
 				AD30DE3A2859A902000D3ACF /* SymblDemo.xcdatamodeld in Sources */,
 				AD30DE3E2859A902000D3ACF /* ContentView.swift in Sources */,
+				AD0AE8EF28647CF4002A653B /* CaptureSession.swift in Sources */,
+				AD0AE8F028647D1B002A653B /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

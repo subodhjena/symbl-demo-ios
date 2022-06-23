@@ -21,8 +21,8 @@ struct RecordingView: View {
     @State private var activeTranscription: String = ""
     
     @State private var symbl: Symbl?
-    @State private var symblRealtimeDelegate = SymblRealtimeDataDelegate()
     @StateObject var captureSession = CaptureSession()
+    @StateObject var symblRealtimeDelegate = SymblRealtimeDataDelegate()
     
     init(memo: Memo) {
         _memo = memo
@@ -51,7 +51,7 @@ struct RecordingView: View {
             
             VStack(alignment: .trailing) {
                 HStack {
-                    Text(activeTranscription)
+                    Text(symblRealtimeDelegate.punctuatedTranscript)
                     recordButton
                 }
             }
@@ -88,11 +88,9 @@ struct RecordingView: View {
     private func startOrStopRecording() {
         if(captureSession.isAudioRecording) {
             captureSession.stopRecording()
-            stopRequest()
         }
         else {
             captureSession.startRecording()
-            startRquest()
         }
     }
     
@@ -116,7 +114,7 @@ struct RecordingView: View {
     }
 }
 
-class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
+class SymblRealtimeDataDelegate:NSObject, ObservableObject, SymblRealtimeDelegate {
     /*
     private var _symblTopics: [Topic] = []
     private var _symblInsights: [Insight] = []
@@ -147,6 +145,8 @@ class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
     }
     */
     
+    @State var punctuatedTranscript: String = ""
+    
     func symblRealtimeConnected() {
         print("SymblRealtimeDelegateClass: Conncted")
     }
@@ -157,10 +157,19 @@ class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
     
     func symblReceivedMessage(message: SymblMessage) {
         print("SymblRealtimeDelegateClass: Message - \(message)")
+        self.punctuatedTranscript = message.punctuated!.transcript
     }
     
     func symblReceivedMessageResponse(messageResponse: SymblMessageResponse) {
         print("SymblRealtimeDelegateClass: MessageResponse - \(messageResponse)")
+    }
+    
+    func symblReceivedInsightResponse(insightResponse: SymblInsightResponse) {
+        print("SymblRealtimeDelegateClass: InsightResponse - \(insightResponse)")
+    }
+    
+    func symblReceivedToipcResponse(topicResponse: SymblTopicResponse) {
+        print("SymblRealtimeDelegateClass: TopicResponse - \(topicResponse)")
     }
 }
 

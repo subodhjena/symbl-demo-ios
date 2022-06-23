@@ -1,45 +1,37 @@
 //
-//  RecordingView.swift
+//  NewRecordingView.swift
 //  SymblDemo (iOS)
 //
-//  Created by Subodh Jena on 15/06/22.
+//  Created by Subodh Jena on 22/06/22.
 //
 
 import SwiftUI
 import CoreData
+import SymblSwiftSDK
 
 struct RecordingView: View {
-    var memo: Memo
+    let accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjQ5NTYzMTYwODU3ODA0ODAiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoibzZXM1BLdUg2cnAxVVBxY0VhQ2NHSnlwMXlLQ25MVFJAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjU1OTAxNjcyLCJleHAiOjE2NTU5ODgwNzIsImF6cCI6Im82VzNQS3VINnJwMVVQcWNFYUNjR0p5cDF5S0NuTFRSIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.xEuaaCCGoPTVJllUpucIiez9X3U3wON2EcljrnTyZ8aRo7-bQYNPFmXfhVrq3uLxJKpXDQ8tAoo9mdQg0M2U1gxb2-TG6QbyYvvPgZYKX8JUrfwmRKnDtWCsOj2difnM-l45EhgwsHFjrhOxkfnpvobf18pL0yboZZxLPUUMKlemCkVYTKBitnGA512-RNORn1QqLIB8T5zn61a55vOPBHjxe2NmjkjQUiJsZ13aQqyp_jVVD6uAxE8UOY4Vu2vNvDlB6McfGJnALnGuNgmkQnedUMgBDzNNqv0nPbighpZMZ2elw0T_1BKagwF4xMcRC3EV2pBK7PpGOJX_O1i02A"
     
-    @State var formattedTranscription: String = ""
-    @State var activeTranscription: String = ""
-    
-    @State var symblTopics: [Topic] = []
-    @State var symblInsights: [Insight] = []
-    
-    var symblInsightQuestions: [Insight] {
-        get {
-            return symblInsights.filter { $0.type == "question" }
-        }
-    }
-    var symblInsightActionItems: [Insight] {
-        get {
-            return symblInsights.filter { $0.type == "action_item" }
-        }
-    }
-    var symblInsightFollowUps: [Insight] {
-        get {
-            return symblInsights.filter { $0.type == "follow_up" }
-        }
+    private var _memo: Memo
+    var memo: Memo {
+        get { return _memo }
     }
     
+    @State private var formattedTranscription: String = ""
+    @State private var activeTranscription: String = ""
+    
+    @State private var symbl: Symbl?
     @StateObject var captureSession = CaptureSession()
-    @StateObject var symblRealtime = SymblRealtime()
+    @StateObject var symblRealtimeDelegate = SymblRealtimeDataDelegate()
+    
+    init(memo: Memo) {
+        _memo = memo
+    }
     
     var body: some View {
         VStack (){
             VStack(alignment: .leading, spacing: 8) {
-                Text(memo.timestamp!, formatter: itemFormatter)
+                Text(_memo.timestamp!, formatter: itemFormatter)
                     .fontWeight(.bold)
                     .font(.headline)
                 
@@ -47,9 +39,8 @@ struct RecordingView: View {
                     .fontWeight(.light)
                     .font(.subheadline)
                 
-                Text("Topics: \(symblTopics.count), Questions: \(symblInsightQuestions.count)")
-                
-                Text("Follow ups: \(symblInsightFollowUps.count), Actions Items: \(symblInsightActionItems.count)")
+                Text("Topics: \(0), Questions: \(0)")
+                Text("Follow ups: \(0), Actions Items: \(0)")
             }
             .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 80 ,alignment: .topLeading)
             .padding(20)
@@ -60,19 +51,8 @@ struct RecordingView: View {
             
             VStack(alignment: .trailing) {
                 HStack {
-                    Text(activeTranscription)
-                    
-                    Button(
-                        action: captureSession.isAudioRecording ? pauseAudioRecording : resumeAudioRecording,
-                        label: {
-                            captureSession.isAudioRecording ? Image("MicOn")
-                                .foregroundColor(Color.white) : Image("MicOff")
-                                .foregroundColor(Color.white)
-                        }
-                    )
-                    .frame(width: 64, height: 64)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                    Text(symblRealtimeDelegate.punctuatedTranscript)
+                    recordButton
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: 80, alignment: .trailing)
@@ -81,73 +61,102 @@ struct RecordingView: View {
         .onReceive(captureSession.audioPublisher){ (data) in
             receivedAudioData(data: data)
         }
-        .onReceive(symblRealtime.symblMessagePublisher) {(data) in
-            receivedMessage(data: data)
-        }
-        .onReceive(symblRealtime.symblMessageResponsePublisher) {(data) in
-            print("Symbl - Message Response: \(data)")
-            var text: String = ""
-            for sentence in data.messages {
-                text = text + "\n" + sentence.payload.content
-            }
-            formattedTranscription = formattedTranscription + text + "\n"
-        }
-        .onReceive(symblRealtime.symblTopicResponsePublisher) {(data) in
-            for topic in data.topics {
-                symblTopics.append(topic)
-            }
-        }
-        .onReceive(symblRealtime.symblInsightResponsePublisher) {(data) in
-            for insight in data.insights {
-                symblInsights.append(insight)
-            }
-        }
-        .onAppear() {
-            symblRealtime.connect()
-        }
-        .onDisappear() {
+        .onAppear {
+            symbl = Symbl(accessToken: accessToken)
             
+            let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
+            symbl!.initializeRealtimeSession(meetingId: uniqueMeetingId, delegate: symblRealtimeDelegate)
+            symbl!.realtimeSession?.connect()
+        }
+        .onDisappear {
             captureSession.stopRecording()
-            symblRealtime.disconnect()
-            
+            symbl!.realtimeSession?.disconnect()
         }
     }
     
-    func resumeAudioRecording() {
-        print("Streaming resumed!")
-        captureSession.startRecording()
-        symblRealtime.startRequest()
+    var recordButton: some View {
+        Button(action: startOrStopRecording, label: {
+            captureSession.isAudioRecording ? Image("MicOn")
+                .foregroundColor(Color.white) : Image("MicOff")
+                .foregroundColor(Color.white)
+        })
+        .frame(width: 64, height: 64)
+        .background(Color.blue)
+        .cornerRadius(10)
     }
     
-    func pauseAudioRecording() {
-        print("Streaming paused!")
-        captureSession.stopRecording()
-        symblRealtime.stopRequest()
+    private func startOrStopRecording() {
+        if(captureSession.isAudioRecording) {
+            captureSession.stopRecording()
+        }
+        else {
+            captureSession.startRecording()
+        }
     }
     
-    func stopStreaming() {
-        print("Streaming stoped!")
-        captureSession.stopRecording();
+    private func startRquest() {
+        let startRequest = SymblStartRequest(
+            insightTypes: [ "question","action_item","follow_up"],
+            meetingTitle: itemFormatter.string(from: memo.timestamp!),
+            config: SymblConfig(speechRecognition: SymblSpeechRecognition(encoding: "LINEAR16", sampleRateHertz: 44100),
+                                confidenceThreshold: 0.5, languageCode: "en-US"),
+            speaker: SymblSpeaker(name: "Subodh Jena", userID: "subodh.jena@symbl.ai"), type: "start_request")
+        
+        symbl!.realtimeSession?.startRequest(startRequest: startRequest)
     }
     
-    func receivedAudioData(data: Data) {
-        print("Received data - \(data)")
-        symblRealtime.streamAudio(data: data)
+    private func stopRequest() {
+        symbl!.realtimeSession!.stopRequest()
     }
     
-    func receivedMessage(data: SymblMessage) {
-        let message = data.message
-        activeTranscription = message.punctuated.transcript
+    private func receivedAudioData(data: Data) {
+        symbl!.realtimeSession!.streamAudio(data: data)
+    }
+}
+
+class SymblRealtimeDataDelegate:NSObject, ObservableObject, SymblRealtimeDelegate {
+    @State var punctuatedTranscript: String = ""
+    
+    func symblRealtimeConnected() {
+        print("SymblRealtimeDelegateClass: Conncted")
+    }
+    
+    func symblRealtimeDisonnected() {
+        print("SymblRealtimeDelegateClass: Disconncted")
+    }
+    
+    func symblReceivedMessage(message: SymblMessage) {
+        print("SymblRealtimeDelegateClass: Message")
+        self.punctuatedTranscript = message.punctuated!.transcript
+    }
+    
+    func symblReceivedMessageResponse(messageResponse: SymblMessageResponse) {
+        print("SymblRealtimeDelegateClass: MessageResponse")
+    }
+    
+    func symblReceivedToipcResponse(topicResponse: SymblTopicResponse) {
+        print("SymblRealtimeDelegateClass: TopicResponse")
+    }
+    
+    func symblReceivedActionItems(actionItems: [SymblInsight]) {
+        print("SymblRealtimeDelegateClass: Action Items")
+    }
+    
+    func symblReceivedQuestions(questions: [SymblInsight]) {
+        print("SymblRealtimeDelegateClass: Questions")
+    }
+    
+    func symblReceivedFollowUps(followUps: [SymblInsight]) {
+        print("SymblRealtimeDelegateClass: Follow ups")
     }
 }
 
 struct RecordingView_Previews: PreviewProvider {
-    
     static var previews: some View {
         let previewViewContext = PersistenceController.preview.container.viewContext
         let fetchRequest = NSFetchRequest<Memo>(entityName: "Memo")
         
-        let memo = try? previewViewContext.fetch(fetchRequest).first! as Memo
+        let memo = try? previewViewContext.fetch(fetchRequest).last! as Memo
         RecordingView(memo: memo!)
     }
 }

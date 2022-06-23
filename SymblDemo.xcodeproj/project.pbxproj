@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AD0AE8EC286479E8002A653B /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD0AE8EB286479E8002A653B /* SymblSwiftSDK */; };
-		AD0AE8EE286479ED002A653B /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD0AE8ED286479ED002A653B /* SymblSwiftSDK */; };
 		AD0AE8EF28647CF4002A653B /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */; };
 		AD0AE8F028647D1B002A653B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B962859ACA6009B810B /* Extensions.swift */; };
 		AD0C1B972859ACA6009B810B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B962859ACA6009B810B /* Extensions.swift */; };
@@ -28,6 +26,8 @@
 		AD30DE402859A902000D3ACF /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30DE122859A901000D3ACF /* Persistence.swift */; };
 		AD30DE412859A902000D3ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD30DE132859A902000D3ACF /* Assets.xcassets */; };
 		AD30DE422859A902000D3ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD30DE132859A902000D3ACF /* Assets.xcassets */; };
+		AD7D38222864926B007D87E5 /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD7D38212864926B007D87E5 /* SymblSwiftSDK */; };
+		AD7D382428649272007D87E5 /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AD7D382328649272007D87E5 /* SymblSwiftSDK */; };
 		ADD2620F2863487B00F482B2 /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD14D0002862E22B002F00D8 /* RecordingView.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD0AE8EC286479E8002A653B /* SymblSwiftSDK in Frameworks */,
+				AD7D38222864926B007D87E5 /* SymblSwiftSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD0AE8EE286479ED002A653B /* SymblSwiftSDK in Frameworks */,
+				AD7D382428649272007D87E5 /* SymblSwiftSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +210,7 @@
 			);
 			name = "SymblDemo (iOS)";
 			packageProductDependencies = (
-				AD0AE8EB286479E8002A653B /* SymblSwiftSDK */,
+				AD7D38212864926B007D87E5 /* SymblSwiftSDK */,
 			);
 			productName = "SymblDemo (iOS)";
 			productReference = AD30DE182859A902000D3ACF /* SymblDemo.app */;
@@ -230,7 +230,7 @@
 			);
 			name = "SymblDemo (macOS)";
 			packageProductDependencies = (
-				AD0AE8ED286479ED002A653B /* SymblSwiftSDK */,
+				AD7D382328649272007D87E5 /* SymblSwiftSDK */,
 			);
 			productName = "SymblDemo (macOS)";
 			productReference = AD30DE1E2859A902000D3ACF /* SymblDemo.app */;
@@ -604,6 +604,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -632,6 +633,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -777,11 +779,11 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AD0AE8EB286479E8002A653B /* SymblSwiftSDK */ = {
+		AD7D38212864926B007D87E5 /* SymblSwiftSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SymblSwiftSDK;
 		};
-		AD0AE8ED286479ED002A653B /* SymblSwiftSDK */ = {
+		AD7D382328649272007D87E5 /* SymblSwiftSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SymblSwiftSDK;
 		};

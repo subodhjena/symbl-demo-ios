@@ -10,7 +10,7 @@ import CoreData
 import SymblSwiftSDK
 
 struct RecordingView: View {
-    let accessToken = "CHANGE_THIS"
+    let accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjYyMTk5NTAyNzc1MjU1MDQiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiTFFPVWFQeGp3SER2aXNXNExVTHVIRXJJRUp3VEJnT3ZAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjU1OTg4NTUwLCJleHAiOjE2NTYwNzQ5NTAsImF6cCI6IkxRT1VhUHhqd0hEdmlzVzRMVUx1SEVySUVKd1RCZ092IiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.PJFvCq8f7RWsd9O0H-8-zznpQcfiRLqp3gOY6X3G_6b8_984SjJkDPMm16qdcWHDT4URg3nBs-YtO4Yhh96RlotzHV4JRwSJxPyIYqe22vIfP2_bWHkkPYcIclXhd-AdR4yQqnPQfUmw-6BRmv4wMGR8MxJQvdcbNAI-TXrTKhnT46ziEY61drcZnEAlxE1ccp6X1RjM5wsAI9wPJGxZiBtkUwc1BtHa4RhM_okLC8VOnL4YguOgAN6CC8zEraNreMXlW_bG6Tv3H3G9MJNHOs8Ccd64JmyI4feKZ28dlmuB4s9Wv3bf3mzf7Wo0fQsbxYpzpf-TSeXo5zYnrImA7A"
     
     private var _memo: Memo
     var memo: Memo {
@@ -71,6 +71,9 @@ struct RecordingView: View {
         }
         .onDisappear {
             captureSession.stopRecording()
+            
+            // This needs to be one after another
+            stopRequest()
             symbl!.realtimeSession?.disconnect()
         }
     }
@@ -92,6 +95,7 @@ struct RecordingView: View {
         }
         else {
             captureSession.startRecording()
+            startRquest()
         }
     }
     

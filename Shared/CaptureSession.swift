@@ -25,10 +25,8 @@ class CaptureSession: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, Ob
     }
     
     func startRecording() {
-        print("Starting Capture Session")
         self.captureSession = AVCaptureSession()
         
-        print("Fetching Audio Capture Device")
         // let queue = DispatchQueue(label: "AudioSessionQueue", attributes: [])
         let audioDevice = AVCaptureDevice.default(for: .audio)
         var audioInput : AVCaptureDeviceInput? = nil
@@ -41,15 +39,12 @@ class CaptureSession: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, Ob
             print("Configuration failed. Handle error.")
         }
         
-        print("Add Audio Input Device")
         if captureSession.canAddInput(audioInput!) {
             captureSession.addInput(audioInput!)
         } else {
             print("Audio inputs are invalid.")
         }
         
-        
-        print("Setting up audio data output")
         audioOutput = AVCaptureAudioDataOutput()
         audioOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "test"))
         if captureSession.canAddOutput(audioOutput!) {
@@ -63,9 +58,10 @@ class CaptureSession: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, Ob
     }
     
     func stopRecording() {
-        print("Stop the capture session")
-        captureSession.stopRunning()
-        isAudioRecording = false
+        if(isAudioRecording) {
+            captureSession.stopRunning()
+            isAudioRecording = false
+        }
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {

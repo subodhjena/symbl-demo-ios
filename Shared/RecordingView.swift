@@ -115,36 +115,6 @@ struct RecordingView: View {
 }
 
 class SymblRealtimeDataDelegate:NSObject, ObservableObject, SymblRealtimeDelegate {
-    /*
-    private var _symblTopics: [Topic] = []
-    private var _symblInsights: [Insight] = []
-    public var symblTopics: [Topic] {
-        get {
-            return _symblTopics
-        }
-    }
-    public var symblInsights: [Insight] {
-        get {
-            return _symblInsights
-        }
-    }
-    public var symblInsightQuestions: [Insight] {
-        get {
-            return _symblInsights.filter { $0.type == "question" }
-        }
-    }
-    public var symblInsightActionItems: [Insight] {
-        get {
-            return _symblInsights.filter { $0.type == "action_item" }
-        }
-    }
-    public var symblInsightFollowUps: [Insight] {
-        get {
-            return _symblInsights.filter { $0.type == "follow_up" }
-        }
-    }
-    */
-    
     @State var punctuatedTranscript: String = ""
     
     func symblRealtimeConnected() {
@@ -156,20 +126,28 @@ class SymblRealtimeDataDelegate:NSObject, ObservableObject, SymblRealtimeDelegat
     }
     
     func symblReceivedMessage(message: SymblMessage) {
-        print("SymblRealtimeDelegateClass: Message - \(message)")
+        print("SymblRealtimeDelegateClass: Message")
         self.punctuatedTranscript = message.punctuated!.transcript
     }
     
     func symblReceivedMessageResponse(messageResponse: SymblMessageResponse) {
-        print("SymblRealtimeDelegateClass: MessageResponse - \(messageResponse)")
-    }
-    
-    func symblReceivedInsightResponse(insightResponse: SymblInsightResponse) {
-        print("SymblRealtimeDelegateClass: InsightResponse - \(insightResponse)")
+        print("SymblRealtimeDelegateClass: MessageResponse")
     }
     
     func symblReceivedToipcResponse(topicResponse: SymblTopicResponse) {
-        print("SymblRealtimeDelegateClass: TopicResponse - \(topicResponse)")
+        print("SymblRealtimeDelegateClass: TopicResponse")
+    }
+    
+    func symblReceivedActionItems(actionItems: [SymblInsight]) {
+        print("SymblRealtimeDelegateClass: Action Items")
+    }
+    
+    func symblReceivedQuestions(questions: [SymblInsight]) {
+        print("SymblRealtimeDelegateClass: Questions")
+    }
+    
+    func symblReceivedFollowUps(followUps: [SymblInsight]) {
+        print("SymblRealtimeDelegateClass: Follow ups")
     }
 }
 

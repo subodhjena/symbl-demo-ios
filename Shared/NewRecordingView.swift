@@ -39,9 +39,8 @@ struct NewRecordingView: View {
                     .fontWeight(.light)
                     .font(.subheadline)
                 
-                Text("Topics: \(symblRealtimeDelegate.symblTopics.count), Questions: \(symblRealtimeDelegate.symblInsightQuestions.count)")
-                
-                Text("Follow ups: \(symblRealtimeDelegate.symblInsightFollowUps.count), Actions Items: \(symblRealtimeDelegate.symblInsightActionItems.count)")
+                Text("Topics: \(0), Questions: \(0)")
+                Text("Follow ups: \(0), Actions Items: \(0)")
             }
             .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 80 ,alignment: .topLeading)
             .padding(20)
@@ -118,9 +117,9 @@ struct NewRecordingView: View {
 }
 
 class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
+    /*
     private var _symblTopics: [Topic] = []
     private var _symblInsights: [Insight] = []
-    
     public var symblTopics: [Topic] {
         get {
             return _symblTopics
@@ -146,6 +145,7 @@ class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
             return _symblInsights.filter { $0.type == "follow_up" }
         }
     }
+    */
     
     func symblRealtimeConnected() {
         print("SymblRealtimeDelegateClass: Conncted")
@@ -153,6 +153,14 @@ class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
     
     func symblRealtimeDisonnected() {
         print("SymblRealtimeDelegateClass: Disconncted")
+    }
+    
+    func symblReceivedMessage(message: SymblMessage) {
+        print("SymblRealtimeDelegateClass: Message - \(message)")
+    }
+    
+    func symblReceivedMessageResponse(messageResponse: SymblMessageResponse) {
+        print("SymblRealtimeDelegateClass: MessageResponse - \(messageResponse)")
     }
 }
 

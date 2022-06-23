@@ -21,7 +21,7 @@ struct ContentView: View {
             List {
                 ForEach(memos) { memo in
                     NavigationLink {
-                        NewRecordingView(memo: memo)
+                        RecordingView(memo: memo)
                     } label: {
                         Text(memo.timestamp!, formatter: itemFormatter)
                     }

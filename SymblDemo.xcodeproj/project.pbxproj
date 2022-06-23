@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		AD0C1B972859ACA6009B810B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B962859ACA6009B810B /* Extensions.swift */; };
 		AD0C1B9B2859AF5E009B810B /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */; };
-		AD14D0012862E22B002F00D8 /* NewRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD14D0002862E22B002F00D8 /* NewRecordingView.swift */; };
+		AD14D0012862E22B002F00D8 /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD14D0002862E22B002F00D8 /* RecordingView.swift */; };
 		AD30DE2A2859A902000D3ACF /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30DE292859A902000D3ACF /* Tests_iOS.swift */; };
 		AD30DE2C2859A902000D3ACF /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30DE2B2859A902000D3ACF /* Tests_iOSLaunchTests.swift */; };
 		AD30DE362859A902000D3ACF /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30DE352859A902000D3ACF /* Tests_macOS.swift */; };
@@ -26,7 +26,7 @@
 		AD30DE422859A902000D3ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD30DE132859A902000D3ACF /* Assets.xcassets */; };
 		ADC22E102863476600C66F3D /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = ADC22E0F2863476600C66F3D /* SymblSwiftSDK */; };
 		ADC22E122863476B00C66F3D /* SymblSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = ADC22E112863476B00C66F3D /* SymblSwiftSDK */; };
-		ADD2620F2863487B00F482B2 /* NewRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD14D0002862E22B002F00D8 /* NewRecordingView.swift */; };
+		ADD2620F2863487B00F482B2 /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD14D0002862E22B002F00D8 /* RecordingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		AD0C1B962859ACA6009B810B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 		AD0C1B9C2859B0C4009B810B /* SymblDemo--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SymblDemo--iOS--Info.plist"; sourceTree = "<group>"; };
-		AD14D0002862E22B002F00D8 /* NewRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordingView.swift; sourceTree = "<group>"; };
+		AD14D0002862E22B002F00D8 /* RecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView.swift; sourceTree = "<group>"; };
 		AD30DE0F2859A901000D3ACF /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		AD30DE102859A901000D3ACF /* SymblDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymblDemoApp.swift; sourceTree = "<group>"; };
 		AD30DE112859A901000D3ACF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 				AD30DE132859A902000D3ACF /* Assets.xcassets */,
 				AD30DE0E2859A901000D3ACF /* SymblDemo.xcdatamodeld */,
 				AD0C1B9A2859AF5E009B810B /* CaptureSession.swift */,
-				AD14D0002862E22B002F00D8 /* NewRecordingView.swift */,
+				AD14D0002862E22B002F00D8 /* RecordingView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -359,7 +359,7 @@
 			files = (
 				AD30DE3B2859A902000D3ACF /* SymblDemoApp.swift in Sources */,
 				AD30DE3F2859A902000D3ACF /* Persistence.swift in Sources */,
-				AD14D0012862E22B002F00D8 /* NewRecordingView.swift in Sources */,
+				AD14D0012862E22B002F00D8 /* RecordingView.swift in Sources */,
 				AD0C1B9B2859AF5E009B810B /* CaptureSession.swift in Sources */,
 				AD0C1B972859ACA6009B810B /* Extensions.swift in Sources */,
 				AD30DE392859A902000D3ACF /* SymblDemo.xcdatamodeld in Sources */,
@@ -373,7 +373,7 @@
 			files = (
 				AD30DE3C2859A902000D3ACF /* SymblDemoApp.swift in Sources */,
 				AD30DE402859A902000D3ACF /* Persistence.swift in Sources */,
-				ADD2620F2863487B00F482B2 /* NewRecordingView.swift in Sources */,
+				ADD2620F2863487B00F482B2 /* RecordingView.swift in Sources */,
 				AD30DE3A2859A902000D3ACF /* SymblDemo.xcdatamodeld in Sources */,
 				AD30DE3E2859A902000D3ACF /* ContentView.swift in Sources */,
 			);

@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 import SymblSwiftSDK
 
-struct NewRecordingView: View {
+struct RecordingView: View {
     let accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjQ5NTYzMTYwODU3ODA0ODAiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoibzZXM1BLdUg2cnAxVVBxY0VhQ2NHSnlwMXlLQ25MVFJAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjU1OTAxNjcyLCJleHAiOjE2NTU5ODgwNzIsImF6cCI6Im82VzNQS3VINnJwMVVQcWNFYUNjR0p5cDF5S0NuTFRSIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.xEuaaCCGoPTVJllUpucIiez9X3U3wON2EcljrnTyZ8aRo7-bQYNPFmXfhVrq3uLxJKpXDQ8tAoo9mdQg0M2U1gxb2-TG6QbyYvvPgZYKX8JUrfwmRKnDtWCsOj2difnM-l45EhgwsHFjrhOxkfnpvobf18pL0yboZZxLPUUMKlemCkVYTKBitnGA512-RNORn1QqLIB8T5zn61a55vOPBHjxe2NmjkjQUiJsZ13aQqyp_jVVD6uAxE8UOY4Vu2vNvDlB6McfGJnALnGuNgmkQnedUMgBDzNNqv0nPbighpZMZ2elw0T_1BKagwF4xMcRC3EV2pBK7PpGOJX_O1i02A"
     
     private var _memo: Memo
@@ -164,12 +164,12 @@ class SymblRealtimeDataDelegate: SymblRealtimeDelegate {
     }
 }
 
-struct NewRecordingView_Previews: PreviewProvider {
+struct RecordingView_Previews: PreviewProvider {
     static var previews: some View {
         let previewViewContext = PersistenceController.preview.container.viewContext
         let fetchRequest = NSFetchRequest<Memo>(entityName: "Memo")
         
         let memo = try? previewViewContext.fetch(fetchRequest).last! as Memo
-        NewRecordingView(memo: memo!)
+        RecordingView(memo: memo!)
     }
 }

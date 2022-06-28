@@ -4,11 +4,26 @@ An iOS app with Symbl realtime api integration
 
 ## How to run?
 
-Go to file Shared/SymblSDK/SymblRealtime.swift
+Go to file Shared/RecordingView.swift
 
 ```swift
-    // Replace below variables with appropriate data
+    // Replace accessToken & uniqueMeetinId below variables with appropriate data
+    
+    struct RecordingView: View {
+        let accessToken = "CHANGE_THIS"
+    
+        private var _memo: Memo
+        var memo: Memo {
+            get { return _memo }
+        }
+        
+    ...
+    
+    .onAppear {
+        symbl = Symbl(accessToken: accessToken)
 
-    let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
-    let accessToken = "CHANGE_THIS";
+        let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
+        symbl!.initializeRealtimeSession(meetingId: uniqueMeetingId, delegate: symblRealtimeDelegate)
+        symbl!.realtimeSession?.connect()
+    }
 ```

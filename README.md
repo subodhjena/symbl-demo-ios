@@ -1,6 +1,6 @@
-# Symbl iOS Demo
+# Symbl iOS SDK Demo
 
-An iOS app with Symbl realtime api integration
+A simple memo iOS app which uses symbl's realtime iOS sdk to get insights from live voice recording
 
 `Note: The demo requries a real device to work`
 
@@ -24,3 +24,7 @@ Go to file Shared/RecordingView.swift
         symbl.realtimeSession?.connect()
     }
 ```
+
+## How to see output?
+
+There is some work that needs to be done on the UI. For now, You can look at the logs for the actual responses. Please look for the `SymblRealtimeDataDelegate` implementation

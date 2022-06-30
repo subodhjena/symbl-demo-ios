@@ -2,6 +2,8 @@
 
 An iOS app with Symbl realtime api integration
 
+`Note: The demo requries a real device to work`
+
 ## How to run?
 
 Go to file Shared/RecordingView.swift

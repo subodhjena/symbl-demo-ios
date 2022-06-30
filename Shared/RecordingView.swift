@@ -10,7 +10,7 @@ import CoreData
 import SymblSwiftSDK
 
 struct RecordingView: View {
-    let accessToken = "CHANGE_THIS"
+    
     
     private var _memo: Memo
     var memo: Memo {
@@ -62,9 +62,10 @@ struct RecordingView: View {
             receivedAudioData(data: data)
         }
         .onAppear {
-            symbl = Symbl(accessToken: accessToken)
-            
+            let accessToken = "CHANGE_THIS"
             let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
+            
+            symbl = Symbl(accessToken: accessToken)
             symbl!.initializeRealtimeSession(meetingId: uniqueMeetingId, delegate: symblRealtimeDelegate)
             symbl!.realtimeSession?.connect()
         }

@@ -18,8 +18,7 @@ Go to file Shared/RecordingView.swift
 
         symbl = Symbl(accessToken: accessToken)
 
-        let uniqueMeetingId = "subodh.jena@symbl.ai".toBase64()
-        symbl!.initializeRealtimeSession(meetingId: uniqueMeetingId, delegate: symblRealtimeDelegate)
-        symbl!.realtimeSession?.connect()
+        symbl.initializeRealtimeSession(meetingId: uniqueMeetingId, delegate: symblRealtimeDelegate)
+        symbl.realtimeSession?.connect()
     }
 ```
